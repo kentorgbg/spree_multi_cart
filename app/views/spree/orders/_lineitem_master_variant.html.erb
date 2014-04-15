@@ -1,0 +1,38 @@
+<% 
+	variant = line_item.variant 
+-%>
+<%= order_form.fields_for :line_items, line_item do |item_form| -%>
+  <tr class="<%= color %> line-item">
+    <td class="cart-item-image" data-hook="cart_item_image">
+    	
+			<% if variant.images.length == 0 %>
+				<%= link_to small_image(variant.product), variant.product %>
+			<% else %>
+				<%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
+			<% end %>
+
+    </td>
+    <td class="cart-item-description" data-hook="cart_item_description">
+			
+			<h4><%= link_to line_item.name, product_path(variant.product) %></h4>
+      <%= variant.options_text %>
+      <% if @order.insufficient_stock_lines.include? line_item %>
+        <span class="out-of-stock">
+          <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br />
+        </span>
+      <% end %>
+      <span class="line-item-description" data-hook="line_item_description">
+        <%= line_item_description_text(line_item.description) %>
+      </span>
+    </td>
+    <td class="cart-item-price" data-hook="cart_item_price">
+    </td>
+    <td class="cart-item-quantity" data-hook="cart_item_quantity">
+    </td>
+    <td class="cart-item-total" data-hook="cart_item_total">
+    </td>
+    <td class="cart-item-delete" data-hook="cart_item_delete">
+    </td>
+  </tr>
+<% end -%>
+

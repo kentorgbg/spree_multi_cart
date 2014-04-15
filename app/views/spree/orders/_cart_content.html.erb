@@ -1,0 +1,3 @@
+<% order_form.object.line_items.each do |line_item| %>
+	<%= render partial: partial_name(line_item), locals: {:line_item => line_item, :order_form => order_form} %>
+<% end %>
